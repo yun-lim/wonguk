@@ -43,7 +43,7 @@ const DAY_MASTER = {
   },
 };
 
-const GOD_HINT = {
+export const GOD_HINT = {
   비견: "나와 같은 힘, 자립",
   겁재: "경쟁과 나눔",
   식신: "표현과 재능이 풀리는 자리",
@@ -57,14 +57,14 @@ const GOD_HINT = {
   일간: "나",
 };
 
-function hasBatchim(word) {
+export function hasBatchim(word) {
   const ch = word[word.length - 1];
   const code = ch.charCodeAt(0);
   if (code < 0xac00 || code > 0xd7a3) return false;
   return (code - 0xac00) % 28 !== 0;
 }
 
-function joinKo(list) {
+export function joinKo(list) {
   if (list.length === 0) return "";
   if (list.length === 1) return list[0];
   if (list.length === 2) {
@@ -74,17 +74,17 @@ function joinKo(list) {
   return `${list.slice(0, -1).join("·")}${hasBatchim(list[list.length - 2]) ? "과" : "와"} ${list[list.length - 1]}`;
 }
 
-function eunNeun(phrase) {
+export function eunNeun(phrase) {
   const last = phrase.split(" ").pop();
   return phrase + (hasBatchim(last) ? "은" : "는");
 }
 
-function iGa(phrase) {
+export function iGa(phrase) {
   const last = phrase.split(" ").pop();
   return phrase + (hasBatchim(last) ? "이" : "가");
 }
 
-function eulReul(word) {
+export function eulReul(word) {
   return word + (hasBatchim(word) ? "을" : "를");
 }
 
