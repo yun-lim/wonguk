@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>원국 — 만세력 사주팔자 명식 (절입 기준)</title>
+    <meta name="description" content="만세력으로 사주팔자 명식을 한 장에. 월주는 절입, 자시는 야자시 기본. 진태양시는 적용하지 않습니다. 생년월일은 브라우저에서만 계산합니다.">
+    <link rel="canonical" href="/">
+    <meta property="og:title" content="원국 — 만세력 사주팔자 명식">
+    <meta property="og:description" content="절입 기준 원국. 사주팔자, 오행, 십성, 대운을 한 장에. 야자시 기본, 진태양시 없는 v1.">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="ko_KR">
+    <meta property="og:site_name" content="원국">
+    <meta property="og:url" content="/">
+    <meta property="og:image" content="/og.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="원국 — 만세력 사주팔자 명식">
+    <meta name="twitter:description" content="절입 기준 원국. 사주팔자 명식을 한 장에.">
+    <meta name="twitter:image" content="/og.png">
+    <meta name="theme-color" content="#f3efe4">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=Noto+Serif+KR:wght@600;700&display=swap" rel="stylesheet">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "원국",
+      "applicationCategory": "LifestyleApplication",
+      "operatingSystem": "Web",
+      "inLanguage": "ko",
+      "description": "만세력으로 사주팔자 명식을 한 장에. 월주는 절입, 자시는 야자시 기본. 진태양시는 적용하지 않습니다.",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "KRW" },
+      "author": { "@type": "Person", "name": "임대균", "email": "limdg01@gmail.com" }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "원국의 월주는 음력인가요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "아닙니다. 월주와 연주는 24절기 절입 시각을 기준으로 합니다. 입춘이 인월이자 절기 새해입니다. 음력 달로 월주를 매기지 않습니다."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "자시는 어떻게 계산하나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "23시부터 1시까지를 자시로 둡니다. 기본은 야자시로, 23시부터 자정까지는 다음날 일주와 시주로 묶습니다. 자정 경계를 고르면 23시도 당일 일주입니다."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "진태양시를 적용하나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "적용하지 않습니다. 입력 시각을 한국 표준시 그대로 씁니다. 경도, 균시차, 출생 도시는 넣지 않습니다."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "생년월일은 어디에 저장되나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "브라우저에서만 계산합니다. 서버로 생년월일을 보내지 않습니다. 공유 링크를 만들면 주소창 쿼리에 입력값이 들어갑니다."
+          }
+        }
+      ]
+    }
+    </script>
+    <script>
+      (function () {
+        var origin = document.location.origin;
+        var base = "__BASE_URL__";
+        function abs(rel) {
+          if (!rel || /^https?:\/\//.test(rel)) return rel;
+          if (rel.charAt(0) !== "/") rel = "/" + rel;
+          var prefix = base === "/" ? "" : base.replace(/\/$/, "");
+          if (prefix && rel.indexOf(prefix) === 0) return origin + rel;
+          return origin + prefix + rel;
+        }
+        var canon = document.querySelector('link[rel="canonical"]');
+        if (canon) canon.href = abs(canon.getAttribute("href"));
+        ["og:url", "og:image"].forEach(function (p) {
+          var el = document.querySelector('meta[property="' + p + '"]');
+          if (el) el.setAttribute("content", abs(el.getAttribute("content")));
+        });
+        var tw = document.querySelector('meta[name="twitter:image"]');
+        if (tw) tw.setAttribute("content", abs(tw.getAttribute("content")));
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="app" class="app"></div>
+    <div id="toast" class="toast" role="status"></div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# Sitemap loc is relative unless SITE_URL is set at build time.
+Sitemap: /sitemap.xml
