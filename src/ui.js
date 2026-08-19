@@ -16,7 +16,7 @@ export function chipClass(on) {
 export function renderMasthead(tag = "v1 · 절기 명식") {
   return `
     <header class="masthead">
-      <a class="brand" href="${withBase("/")}"><span class="seal">사</span><span class="wordmark">사주</span></a>
+      <a class="brand" href="${withBase("/")}"><span class="seal">봄</span><span class="wordmark">사주봄</span></a>
       <span class="tag">${tag}</span>
     </header>
   `;
@@ -26,7 +26,7 @@ export function renderFooter() {
   return `
     <footer class="site-foot">
       <p>
-        <a href="${withBase("/")}">사주</a> · 임대균 ·
+        <a href="${withBase("/")}">사주봄</a> · 임대균 ·
         <a href="mailto:limdg01@gmail.com">limdg01@gmail.com</a> ·
         <a href="${withBase("/terms")}">이용약관</a> ·
         <a href="${withBase("/privacy")}">개인정보처리방침</a> ·
@@ -37,7 +37,7 @@ export function renderFooter() {
 }
 
 const TABS = [
-  { id: "home", path: "/", label: "사주" },
+  { id: "home", path: "/", label: "사주봄" },
   { id: "reports", path: "/reports", label: "리포트" },
   { id: "pay", path: "/pay", label: "요금" },
   { id: "settings", path: "/settings", label: "설정" },

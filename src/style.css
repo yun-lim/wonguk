@@ -70,9 +70,9 @@ button { cursor: pointer; }
 }
 .wordmark {
   font-family: var(--serif);
-  font-size: 28px;
+  font-size: 26px;
   font-weight: 700;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.06em;
 }
 .tag {
   font-size: 12px;

@@ -1,6 +1,6 @@
 import { withBase } from "./base.js";
 
-const DEFAULT_TITLE = "사주 — 만세력 사주팔자 명식 (절입 기준)";
+const DEFAULT_TITLE = "사주봄 — 만세력 사주팔자 명식 (절입 기준)";
 const DEFAULT_DESC =
   "만세력으로 사주팔자 명식을 한 장에. 월주는 절입, 자시는 야자시 기본. 진태양시는 적용하지 않습니다. 생년월일은 브라우저에서만 계산합니다.";
 
@@ -46,12 +46,12 @@ const PAGES = {
     path: "/settings",
   },
   privacy: {
-    title: "개인정보처리방침 — 사주",
+    title: "개인정보처리방침 — 사주봄",
     description: "생년월일을 서버로 보내지 않습니다. 브라우저에서만 계산하며, 명식과 해제는 이 기기에만 남습니다.",
     path: "/privacy",
   },
   terms: {
-    title: "이용약관 — 사주",
+    title: "이용약관 — 사주봄",
     description: "오락·참고용 만세력 명식입니다. 의학·법률·재정 자문이 아니며 결과를 보장하지 않습니다. 만 14세 이상에게 권합니다.",
     path: "/terms",
   },
@@ -85,7 +85,7 @@ export function applySeo(view, extra) {
     ["og:url", url],
     ["og:image", absUrl("/og.png")],
     ["og:locale", "ko_KR"],
-    ["og:site_name", "사주"],
+    ["og:site_name", "사주봄"],
     ["og:type", "website"],
   ];
   for (const [prop, value] of pairs) {
