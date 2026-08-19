@@ -24,13 +24,16 @@ import { buildReport, REPORT_META, reportPreview } from "./reports.js";
 import {
   esc,
   chipClass,
-  renderMasthead,
+  renderTopbar,
   renderFooter,
   renderTabbar,
   pillarGrid,
   elementBars,
   luckList,
   lockBadge,
+  homeTiles,
+  renderServiceGrid,
+  renderHScroll,
 } from "./ui.js";
 
 const app = document.querySelector("#app");
@@ -96,6 +99,14 @@ function syncFromLocation() {
   if (path === "/") {
     state.view = "home";
     if (state.profile) state.form = { ...DEFAULT_FORM, ...state.profile };
+    return;
+  }
+  if (path === "/dashboard") {
+    if (!state.savedChart) {
+      navigate("/input", { replace: true });
+      return;
+    }
+    state.view = "dashboard";
     return;
   }
   if (path === "/input") {
@@ -170,9 +181,14 @@ function toast(msg) {
   toast._t = setTimeout(() => toastEl.classList.remove("show"), 1800);
 }
 
+function greetingName() {
+  const n = String(state.profile?.name || "").trim();
+  return n || "게스트";
+}
+
 function shell(tag, body, { tab = true } = {}) {
   return `
-    ${renderMasthead(tag)}
+    ${renderTopbar(greetingName())}
     ${body}
     ${renderFooter()}
     ${tab ? renderTabbar(state.view) : ""}
@@ -293,45 +309,37 @@ function readingsBlock(c) {
   </section>`;
 }
 
-function renderHomeEmpty() {
-  const cards = REPORT_IDS.map((id) => {
-    const m = REPORT_META[id];
-    return `<a class="tile" href="${withBase("/reports")}">
-      <span class="tile-kicker">${m.hanja}</span>
-      <strong>${m.title}</strong>
-      <span class="tile-sub">${m.subtitle}</span>
-      ${lockBadge(false)}
-    </a>`;
-  }).join("");
-  app.innerHTML = shell("오늘", `
-    <p class="kicker">절입 기준 명식</p>
-    <h1 class="page-title">한 장으로 보는 사주</h1>
-    <p class="lede">월주는 음력이 아니라 절입입니다. 생년월일은 이 브라우저에만 남고, 서버로 보내지 않습니다.</p>
-
-    <a class="hero-card" href="${withBase("/input")}">
-      <span class="hero-kicker">시작</span>
-      <strong>내 사주 만들기</strong>
-      <span>이름·생년월일을 넣으면 명식·오행·대운이 이 기기에 저장됩니다.</span>
+function renderHome() {
+  const saved = Boolean(state.savedChart);
+  const tiles = homeTiles({ hasProfile: saved, unlocked: unlocked() });
+  const heroHref = saved ? withBase("/dashboard") : withBase("/input");
+  const heroTitle = saved ? "저장된 명식을<br>한 장으로" : "한 장으로 보는<br>내 사주";
+  const heroCta = saved ? "내 사주 보기" : "시작하기";
+  const scroll = renderHScroll([
+    { kicker: "新年", title: "신년 리포트", sub: "올해의 흐름과 대운", href: "/reports/year" },
+    { kicker: "戀愛", title: "연애 리포트", sub: "관계의 결과 십성", href: "/reports/love" },
+    { kicker: "財物", title: "재물 리포트", sub: "재성과 오행의 쓰임", href: "/reports/wealth" },
+    { kicker: "무료", title: "만세력", sub: "저장 없이 한 장", href: "/manse" },
+    { kicker: "해제", title: "요금 990", sub: "한 번 ₩990 · 30일 ₩9,900", href: "/pay" },
+  ]);
+  app.innerHTML = shell("운세", `
+    <a class="hero-banner" href="${heroHref}">
+      <img class="hero-art" src="${withBase("hero.png")}" alt="" width="1200" height="630">
+      <div class="hero-copy">
+        <p class="hero-kicker">절입 기준 명식</p>
+        <h1>${heroTitle}</h1>
+        <span class="hero-cta">${heroCta}</span>
+      </div>
     </a>
-    <a class="submit cta" href="${withBase("/input")}">시작하기</a>
-
-    <div class="price-row">
-      <a class="price-mini" href="${withBase("/pay")}">
-        <span>한 번</span><strong>₩990</strong>
-      </a>
-      <a class="price-mini" href="${withBase("/pay")}">
-        <span>30일</span><strong>₩9,900</strong>
-      </a>
-    </div>
-
+    <section class="svc-card" aria-label="서비스">
+      <div class="svc-grid">${renderServiceGrid(tiles)}</div>
+    </section>
     <h2 class="sec-title">리포트</h2>
-    <div class="tiles">${cards}</div>
-
-    <a class="quiet-link" href="${withBase("/manse")}">무료 만세력 계산기</a>
+    <div class="h-scroll">${scroll}</div>
   `);
 }
 
-function renderHomeSaved() {
+function renderDashboard() {
   const c = state.savedChart;
   const name = c.name || "내 사주";
   app.innerHTML = shell("저장됨", `
@@ -368,7 +376,7 @@ function renderInput() {
       saveProfile(state.form);
       state.savedChart = chart;
       state.error = "";
-      navigate("/");
+      navigate("/dashboard");
       toast("이 브라우저에 저장했습니다");
     } catch (err) {
       state.error = err.message || "이 날짜는 계산할 수 없습니다.";
@@ -660,10 +668,9 @@ function renderStatic(tag, body) {
 }
 
 function render() {
-  if (state.view === "home") {
-    if (state.savedChart) renderHomeSaved();
-    else renderHomeEmpty();
-  } else if (state.view === "input") renderInput();
+  if (state.view === "home") renderHome();
+  else if (state.view === "dashboard") renderDashboard();
+  else if (state.view === "input") renderInput();
   else if (state.view === "manse") renderManse();
   else if (state.view === "manse-result") renderManseResult();
   else if (state.view === "reports") renderReports();
@@ -674,7 +681,7 @@ function render() {
   else if (state.view === "terms") renderStatic("이용약관", pageTerms());
   else if (state.view === "method") renderStatic("계산 기준", pageMethod());
   else if (state.view === "notfound") renderStatic("없음", pageNotFound());
-  else renderHomeEmpty();
+  else renderHome();
   applySeo(state.view);
 }
 

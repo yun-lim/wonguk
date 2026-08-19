@@ -15,6 +15,11 @@ const PAGES = {
     description: DEFAULT_DESC,
     path: "/input",
   },
+  dashboard: {
+    title: "내 사주 — 만세력 명식",
+    description: DEFAULT_DESC,
+    path: "/dashboard",
+  },
   manse: {
     title: "만세력 계산기 — 사주팔자 명식 (절입 · 야자시)",
     description: DEFAULT_DESC,

@@ -95,3 +95,35 @@ describe("storage parse", () => {
     expect(parseBilling({ plan: "wonguk_reports_all" })).toBe(null);
   });
 });
+
+import { homeTiles, HOME_TILES } from "../src/ui.js";
+
+describe("home tiles", () => {
+  it("exposes nine services", () => {
+    expect(HOME_TILES).toHaveLength(9);
+  });
+
+  it("wires empty-state tiles to real routes", () => {
+    const tiles = homeTiles({ hasProfile: false, unlocked: false });
+    expect(tiles.map((x) => x.href)).toEqual([
+      "/input",
+      "/reports/year",
+      "/reports/love",
+      "/reports/wealth",
+      "/manse",
+      "/pay",
+      "/method",
+      "/settings",
+      "/terms",
+    ]);
+    expect(tiles[1].lock).toBe(true);
+    expect(tiles[2].lock).toBe(true);
+    expect(tiles[3].lock).toBe(true);
+  });
+
+  it("sends saved 내 사주 to the dashboard and unlocks paid tiles", () => {
+    const tiles = homeTiles({ hasProfile: true, unlocked: true });
+    expect(tiles[0].href).toBe("/dashboard");
+    expect(tiles[1].lock).toBe(false);
+  });
+});

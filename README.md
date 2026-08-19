@@ -5,7 +5,8 @@
 표시 이름은 사주봄입니다.
 
 ## 경로
-- / 홈 (카드, 저장 명식)
+- / 홈 (앱 밀도 카드, 3×3 서비스)
+- /dashboard 저장된 명식
 - /input 입력 후 localStorage 저장
 - /reports 리포트
 - /pay 요금 (wonguk_once 990, wonguk_monthly 9900/30일, 가상 결제)
