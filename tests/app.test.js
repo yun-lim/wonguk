@@ -96,7 +96,7 @@ describe("storage parse", () => {
   });
 });
 
-import { homeTiles, HOME_TILES } from "../src/ui.js";
+import { homeTiles, HOME_TILES, renderWings, LIVE_URL } from "../src/ui.js";
 
 describe("home tiles", () => {
   it("exposes nine services", () => {
@@ -125,5 +125,36 @@ describe("home tiles", () => {
     const tiles = homeTiles({ hasProfile: true, unlocked: true });
     expect(tiles[0].href).toBe("/dashboard");
     expect(tiles[1].lock).toBe(false);
+  });
+});
+
+
+describe("desktop wings", () => {
+  const html = renderWings();
+
+  it("brands as 사주봄 with honest selling points", () => {
+    expect(LIVE_URL).toBe("https://yun-lim.github.io/wonguk/");
+    expect(html).toContain("사주봄");
+    expect(html).toContain("매일 열어보는 사주");
+    expect(html).toContain("내 사주를 쉽게.");
+    expect(html).toContain("절입 기준 명식");
+    expect(html).toContain("가입 없이 이 기기에 저장");
+    expect(html).toContain("₩990");
+    expect(html).toContain("₩9,900");
+    expect(html).toContain("/method");
+    expect(html).toContain("mailto:limdg01@gmail.com");
+    expect(html).toContain("qr.svg");
+    expect(html).toContain("폰으로 편하게 보세요");
+    expect(html).toContain("홈 화면에 추가");
+    expect(html).toContain("앱 스토어 출시 준비중");
+    expect(html).toContain("주소 복사");
+  });
+
+  it("does not copy 점신 phrases or store badges", () => {
+    expect(html).not.toContain("큐레이터");
+    expect(html).not.toContain("맞춤 운세");
+    expect(html).not.toContain("상담사");
+    expect(html).not.toContain("제휴");
+    expect(html).not.toMatch(/App Store|Google Play|Play 스토어/);
   });
 });

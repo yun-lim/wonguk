@@ -111,6 +111,45 @@ export function renderFooter() {
   `;
 }
 
+export const LIVE_URL = "https://yun-lim.github.io/wonguk/";
+
+export function renderWings() {
+  return `
+    <aside class="wing wing-left" aria-label="사주봄 소개">
+      <div class="wing-inner">
+        <a class="wing-brand" href="${withBase("/")}">
+          <span class="wing-seal" aria-hidden="true">봄</span>
+          <span class="wing-word">사주봄</span>
+        </a>
+        <p class="wing-slogan">매일 열어보는 사주<br>내 사주를 쉽게.</p>
+        <ul class="wing-points">
+          <li>절입 기준 명식</li>
+          <li>가입 없이 이 기기에 저장</li>
+          <li>리포트 한 번 ₩990 · 한 달 ₩9,900</li>
+        </ul>
+        <div class="wing-minis">
+          <a class="wing-mini" href="${withBase("/method")}">
+            <strong>계산 기준</strong>
+            <span>절입 · 야자시</span>
+          </a>
+          <a class="wing-mini" href="mailto:limdg01@gmail.com">
+            <strong>문의</strong>
+            <span>이메일</span>
+          </a>
+        </div>
+      </div>
+    </aside>
+    <aside class="wing wing-right" aria-label="휴대폰으로 보기">
+      <div class="wing-qr">
+        <img class="wing-qr-img" src="${withBase("/qr.svg")}" alt="사주봄 웹 주소 QR 코드" width="168" height="168">
+        <p class="wing-qr-cap">폰으로 편하게 보세요<br>홈 화면에 추가</p>
+        <p class="wing-soon">앱 스토어 출시 준비중</p>
+        <button type="button" class="wing-copy" id="copy-live-url">주소 복사</button>
+      </div>
+    </aside>
+  `;
+}
+
 const TABS = [
   { id: "home", path: "/", label: "홈", icon: "home" },
   { id: "reports", path: "/reports", label: "리포트", icon: "reports" },

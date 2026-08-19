@@ -34,6 +34,8 @@ import {
   homeTiles,
   renderServiceGrid,
   renderHScroll,
+  renderWings,
+  LIVE_URL,
 } from "./ui.js";
 
 const app = document.querySelector("#app");
@@ -713,5 +715,30 @@ if ("serviceWorker" in navigator) {
   navigator.serviceWorker.register(withBase("sw.js")).catch(() => {});
 }
 
+function mountWings() {
+  if (document.querySelector(".wing")) return;
+  const desk = document.querySelector(".desk") || app.parentElement;
+  const wrap = document.createElement("div");
+  wrap.innerHTML = renderWings().trim();
+  const left = wrap.querySelector(".wing-left");
+  const right = wrap.querySelector(".wing-right");
+  if (desk && left && right) {
+    desk.insertBefore(left, app);
+    desk.appendChild(right);
+  }
+  const btn = document.getElementById("copy-live-url");
+  if (btn) {
+    btn.addEventListener("click", async () => {
+      try {
+        await navigator.clipboard.writeText(LIVE_URL);
+        toast("주소를 복사했습니다");
+      } catch {
+        toast(LIVE_URL);
+      }
+    });
+  }
+}
+
+mountWings();
 syncFromLocation();
 render();
